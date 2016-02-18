@@ -1,0 +1,5 @@
+Chat Server
+This is the software written in python, using threading and socket modules to achieve communication.
+See Chat Client Repo, OkeWoke/ChatClient.
+
+Currently GUI less, and probably will remain so.
