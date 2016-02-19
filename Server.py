@@ -4,7 +4,7 @@ import json
 
 class Server():
 	def __init__(self):
-		self.port = 55556
+		self.port = 55557
 		self.serverName = "Server: "
 		self.motd = [self.serverName,"You have connected to Oke\'s Server\n"]
 		self.connections = []
@@ -14,7 +14,9 @@ class Server():
 		self.s.listen(25) #Listens for 25 connections
 		
 		self.acceptConnections()		
-			
+		commandHandler = Thread(target=self.serverCommand)
+		commandHandler.start()
+		
 	def acceptConnections(self):
 		while True:
 			client,addr = self.s.accept()
@@ -30,8 +32,7 @@ class Server():
 			self.connections.append(clientDict)
 			clientHandler = Thread(target=self.clientReceive,args=(clientDict,))			
 			clientHandler.start()
-			commandHandler = Thread(target=self.serverCommand)
-			commandHandler.start()
+	
 			self.broadcast( self.serverEncode(["" , alias + "  has connected"]))
 
 	def broadcast(self, data):
