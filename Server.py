@@ -1,23 +1,24 @@
 from socket import *
 from threading import *
-import json
+import json,sys
 
 class Server():
 	def __init__(self):
-		self.port = 55557
+		self.port = 22228
 		self.serverName = "Server: "
 		self.motd = [self.serverName,"You have connected to Oke\'s Server\n"]
 		self.connections = []
-
 		self.s =socket(AF_INET,SOCK_STREAM) #Create Socket Object
 		self.s.bind(('',self.port)) #Bind port to computer
 		self.s.listen(25) #Listens for 25 connections
-		
-		self.acceptConnections()		
+
 		commandHandler = Thread(target=self.serverCommand)
 		commandHandler.start()
 		
+		self.acceptConnections()		
+		
 	def acceptConnections(self):
+
 		while True:
 			client,addr = self.s.accept()
 			alias = str(client.recv(1024).decode('utf-8'))#This does not use serverDecode because the server is receiving data that is not in the regular format that is a list.
@@ -32,7 +33,6 @@ class Server():
 			self.connections.append(clientDict)
 			clientHandler = Thread(target=self.clientReceive,args=(clientDict,))			
 			clientHandler.start()
-	
 			self.broadcast( self.serverEncode(["" , alias + "  has connected"]))
 
 	def broadcast(self, data):
@@ -83,6 +83,9 @@ class Server():
 		self.broadcast(self.serverEncode([self.serverName,"Server Shutting Down..."]))
 		for clientDict in self.connections:
 			clientDict["clientOb"].close()
+		print("shutting down server...")
+		
+		sys.exit()
 		quit()
 
 	def serverCommand(self):
