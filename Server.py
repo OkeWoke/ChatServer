@@ -2,9 +2,16 @@ from socket import *
 from threading import *
 import json,sys
 
+if sys.version_info >=(3,0):
+        raw_input = input
+
 class Server():
 	def __init__(self):
 		self.port = 22228
+        
+class Server():
+	def __init__(self):
+		self.port = 33333
 		self.serverName = "Server: "
 		self.motd = [self.serverName,"You have connected to Oke\'s Server\n"]
 		self.connections = []
@@ -84,7 +91,10 @@ class Server():
 		for clientDict in self.connections:
 			clientDict["clientOb"].close()
 		print("shutting down server...")
+<<<<<<< HEAD
 		
+=======
+>>>>>>> e6b14926144244d0369b119fa031200a7d2f6bc2
 		sys.exit()
 		quit()
 
