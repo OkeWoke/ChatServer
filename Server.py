@@ -4,14 +4,10 @@ import json,sys
 
 if sys.version_info >=(3,0):
         raw_input = input
-
-class Server():
-	def __init__(self):
-		self.port = 44444
         
 class Server():
 	def __init__(self):
-		self.port = 33333
+		self.port = 44444
 		self.serverName = "Server: "
 		self.motd = [self.serverName,"You have connected to Oke\'s Server\n"]
 		self.connections = []
