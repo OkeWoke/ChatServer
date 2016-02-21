@@ -7,7 +7,7 @@ if sys.version_info >=(3,0):
 
 class Server():
 	def __init__(self):
-		self.port = 22228
+		self.port = 44444
         
 class Server():
 	def __init__(self):
@@ -91,10 +91,6 @@ class Server():
 		for clientDict in self.connections:
 			clientDict["clientOb"].close()
 		print("shutting down server...")
-<<<<<<< HEAD
-		
-=======
->>>>>>> e6b14926144244d0369b119fa031200a7d2f6bc2
 		sys.exit()
 		quit()
 
